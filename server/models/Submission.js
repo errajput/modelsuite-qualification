@@ -23,7 +23,14 @@ const submissionSchema = new mongoose.Schema(
     notes: {
       type: String,
     },
-    // Intentional gap: no reviewedBy, reviewedAt, or feedback fields
+    // Intentional gap: no reviewedBy field — no audit trail of who reviewed
+    // Intentional gap: no reviewedAt timestamp — can't tell when review happened
+    // Intentional gap: no enum validation on reviewStatus — any string is accepted
+    reviewStatus: {
+      type: String,
+      default: 'Pending',
+      // Should be: enum: ['Pending', 'Approved', 'Rejected']
+    },
   },
   { timestamps: true }
 );
