@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import Sidebar from '../../components/admin/Sidebar';
 import SubmissionReviewModal from '../../components/admin/SubmissionReviewModal';
 import { fetchAllSubmissions } from '../../api/submissions';
@@ -12,7 +12,6 @@ const REVIEW_STATUS_CLASS = {
 const SubmissionsPage = () => {
   const [submissions, setSubmissions] = useState([]);
   const [reviewTarget, setReviewTarget] = useState(null);
-  // Intentional gap: no loading state — table flashes empty before data arrives
 
   const loadSubmissions = async () => {
     try {
@@ -24,8 +23,6 @@ const SubmissionsPage = () => {
   };
 
   useEffect(() => { loadSubmissions(); }, []);
-
-  // Stats — Intentional gap: recomputed every render, no useMemo
   const pending  = submissions.filter((s) => s.reviewStatus === 'Pending').length;
   const approved = submissions.filter((s) => s.reviewStatus === 'Approved').length;
   const rejected = submissions.filter((s) => s.reviewStatus === 'Rejected').length;
@@ -64,7 +61,7 @@ const SubmissionsPage = () => {
         <div className="bg-bg-card border border-border rounded-xl overflow-hidden">
           <div className="flex items-center justify-between px-6 py-5 border-b border-border">
             <h2 className="text-[16px] font-semibold text-text-primary">All Submissions</h2>
-            {/* Intentional gap: no search, filter, or sort controls */}
+            
             <span className="text-[12px] text-text-faint bg-bg-input border border-border px-2.5 py-1 rounded-full">
               {submissions.length} total
             </span>
@@ -83,7 +80,7 @@ const SubmissionsPage = () => {
                     <th className={thCls}>Talent</th>
                     <th className={thCls}>Notes</th>
                     <th className={thCls}>File</th>
-                    {/* Intentional gap: submission date shown as raw ISO string */}
+                    
                     <th className={thCls}>Submitted</th>
                     <th className={thCls}>Review Status</th>
                     <th className={thCls}>Actions</th>
@@ -111,7 +108,7 @@ const SubmissionsPage = () => {
                       </td>
 
                       {/* Notes — truncated, no tooltip */}
-                      {/* Intentional gap: truncated notes with no tooltip or expand */}
+                      
                       <td className={`${tdCls} max-w-[200px]`}>
                         <span className="block text-text-muted truncate text-[13px]">
                           {sub.notes || <span className="italic text-text-faint">No notes</span>}

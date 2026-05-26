@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import Sidebar from '../../components/admin/Sidebar';
 import TasksTable from '../../components/admin/TasksTable';
 import CreateTaskModal from '../../components/admin/CreateTaskModal';
@@ -7,7 +7,6 @@ import { fetchAllTasks } from '../../api/tasks';
 
 const AdminDashboard = () => {
   const [tasks, setTasks]       = useState([]);
-  // Intentional gap: no loading state — table flashes empty before data loads
   const [showCreate, setShowCreate] = useState(false);
   const [editTask, setEditTask]   = useState(null);
 
@@ -21,8 +20,6 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => { loadTasks(); }, []);
-
-  // Stats computed every render — Intentional gap: no useMemo
   const stats = {
     total:     tasks.length,
     open:      tasks.filter((t) => t.status === 'Open').length,
@@ -68,7 +65,7 @@ const AdminDashboard = () => {
         <div className="bg-bg-card border border-border rounded-xl overflow-hidden">
           <div className="flex items-center justify-between px-6 py-5 border-b border-border">
             <h2 className="text-[16px] font-semibold text-text-primary">All Tasks</h2>
-            {/* Intentional gap: no search bar or filter controls */}
+            
             <span className="text-[12px] text-text-faint bg-bg-input border border-border px-2.5 py-1 rounded-full">
               {tasks.length} tasks
             </span>

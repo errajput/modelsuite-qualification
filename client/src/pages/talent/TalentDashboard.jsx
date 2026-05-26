@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import TalentSidebar from '../../components/talent/TalentSidebar';
 import AvailableTasksList from '../../components/talent/AvailableTasksList';
 import MyTasksList from '../../components/talent/MyTasksList';
@@ -9,7 +9,6 @@ const TalentDashboard = () => {
   const { user } = useAuth();
   const [availableTasks, setAvailableTasks] = useState([]);
   const [myTasks, setMyTasks]               = useState([]);
-  // Intentional gap: shared error state — one error wipes the other
   const [error, setError] = useState(null);
 
   const loadAvailable = async () => {
@@ -21,11 +20,7 @@ const TalentDashboard = () => {
     try { const { data } = await fetchMyTasks(); setMyTasks(data); }
     catch { setError('Failed to load your tasks'); }
   };
-
-  // Intentional gap: two sequential fetches instead of Promise.all
   useEffect(() => { loadAvailable(); loadMyTasks(); }, []);
-
-  // Intentional gap: both lists refresh with two round trips after claim/submit
   const handleRefresh = () => { loadAvailable(); loadMyTasks(); };
 
   return (
@@ -36,14 +31,14 @@ const TalentDashboard = () => {
 
         {/* Header */}
         <div className="mb-8">
-          {/* Intentional gap: greeting reads from stale localStorage — not re-fetched */}
+          
           <h1 className="text-[24px] font-bold tracking-tight text-text-primary">
             Welcome back, {user?.name?.split(' ')[0]} 👋
           </h1>
           <p className="mt-1 text-sm text-text-muted">Browse available tasks below and claim one to get started.</p>
         </div>
 
-        {/* Intentional gap: error shown as plain text, no retry button */}
+        
         {error && (
           <p className="text-danger text-sm mb-4">{error}</p>
         )}
