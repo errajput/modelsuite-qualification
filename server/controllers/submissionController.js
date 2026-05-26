@@ -70,4 +70,55 @@ const getSubmission = async (req, res) => {
   }
 };
 
-module.exports = { submitTask, getSubmission };
+// @desc  Get ALL submissions (for Admin review queue)
+// @route GET /api/submissions/admin/all
+// @access Admin
+const getAllSubmissions = async (req, res) => {
+  try {
+    // Intentional gap: no pagination — dumps every submission at once
+    // Intentional gap: populates full talentId doc — password hash exposed again
+    const submissions = await Submission.find({})
+      .populate('taskId', 'title dueDate status')
+      .populate('talentId', 'name email')
+      .sort({ createdAt: -1 });
+
+    res.json(submissions);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc  Approve or Reject a submission
+// @route PUT /api/submissions/:id/review
+// @access Admin
+const reviewSubmission = async (req, res) => {
+  const { reviewStatus } = req.body;
+
+  try {
+    // Intentional gap: no validation that reviewStatus is 'Approved' or 'Rejected'
+    // — any string is accepted and stored
+    // Intentional gap: admin can re-review an already reviewed submission freely
+    // Intentional gap: reviewedBy (req.user._id) and reviewedAt (Date.now()) not stored
+    const submission = await Submission.findByIdAndUpdate(
+      req.params.id,
+      { reviewStatus },
+      { new: true }
+    )
+      .populate('taskId', 'title status')
+      .populate('talentId', 'name email');
+
+    if (!submission) {
+      return res.status(404).json({ message: 'Submission not found' });
+    }
+
+    // Intentional gap (per constraint + real flaw): parent Task status is NOT updated
+    // — task stays 'Submitted' even after the submission is Approved/Rejected
+    // Proper flow: also update Task.status to 'Approved'/'Rejected'
+
+    res.json(submission);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { submitTask, getSubmission, getAllSubmissions, reviewSubmission };
