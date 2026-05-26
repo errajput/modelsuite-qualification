@@ -1,4 +1,4 @@
-require('dotenv').config();
+﻿require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
@@ -12,12 +12,8 @@ const path = require('path');
 connectDB();
 
 const app = express();
-
-// Intentional gap: CORS is wide-open (allows all origins) — no whitelist
 app.use(cors());
 app.use(express.json());
-
-// Intentional gap: /uploads is publicly accessible with no auth check —
 // anyone who knows the filename can download any submission file
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 

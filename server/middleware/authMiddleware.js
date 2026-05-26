@@ -1,7 +1,5 @@
-const jwt = require('jsonwebtoken');
+﻿const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-
-// Intentional gap: no handling for expired tokens — same error as invalid token
 const protect = async (req, res, next) => {
   let token;
 
@@ -15,8 +13,6 @@ const protect = async (req, res, next) => {
       res.status(401).json({ message: 'Not authorized, token failed' });
     }
   }
-
-  // Intentional gap: no else block — request hangs silently if no Authorization header
   if (!token) {
     res.status(401).json({ message: 'Not authorized, no token' });
   }

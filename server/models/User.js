@@ -1,7 +1,4 @@
-const mongoose = require('mongoose');
-
-// Intentional gap: no pre-save hook for password hashing here — done in controller
-// Intentional gap: role is not validated server-side on registration (intern can pass any role)
+﻿const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema(
   {
     name: {
