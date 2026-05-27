@@ -1,23 +1,38 @@
 # Task Pipeline
 
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen?style=for-the-badge)
+![License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)
+![Version](https://img.shields.io/badge/version-1.0.0-blue?style=for-the-badge)
+![Maintained](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=for-the-badge)
+
 A full-stack task management system for talent onboarding workflows. Built with the MERN stack.
 
 ---
 
-## Tech Stack
+## 👨‍💻 Maintainers & Core Team
 
-| Layer | Technology |
-|---|---|
-| Frontend | React 18 + Vite 5 |
-| Styling | Tailwind CSS v4 + custom CSS |
-| Backend | Node.js + Express 4 |
-| Database | MongoDB + Mongoose |
-| Auth | JWT (jsonwebtoken + bcryptjs) |
-| File Uploads | Multer |
+**Pranav Garg**
+- **Role:** Project Maintainer / Admin
+- **GitHub:** [@Pranav140](https://github.com/Pranav140)
+
+> This project is actively maintained. Please refer to the [CODEOWNERS](#codeowners) section for code review policies.
 
 ---
 
-## Project Structure
+## 🛠 Tech Stack
+
+| Layer | Technology |
+|---|---|
+| **Frontend** | React 18 + Vite 5 |
+| **Styling** | Tailwind CSS v4 + custom CSS |
+| **Backend** | Node.js + Express 4 |
+| **Database** | MongoDB + Mongoose |
+| **Auth** | JWT (jsonwebtoken + bcryptjs) |
+| **File Uploads** | Multer |
+
+---
+
+## 📁 Project Structure
 
 ```
 modelsuite-qualification/
@@ -43,7 +58,7 @@ modelsuite-qualification/
 
 ---
 
-## Prerequisites
+## 📋 Prerequisites
 
 - **Node.js** v18 or higher — [nodejs.org](https://nodejs.org)
 - **MongoDB** running locally on port 27017, **or** a MongoDB Atlas connection string
@@ -52,7 +67,7 @@ modelsuite-qualification/
 
 ---
 
-## Setup
+## 🚀 Setup
 
 ### 1. Clone the repository
 
@@ -113,7 +128,7 @@ npm install
 
 ---
 
-## Running the Application
+## 💻 Running the Application
 
 You need **two terminals open simultaneously**.
 
@@ -133,7 +148,7 @@ The app will open at `http://localhost:5173`
 
 ---
 
-## User Roles & Flows
+## 👥 User Roles & Flows
 
 ### Admin
 - Log in at `/login`
@@ -149,7 +164,7 @@ The app will open at `http://localhost:5173`
 
 ---
 
-## API Reference
+## 🔌 API Reference
 
 ### Auth
 
@@ -192,7 +207,7 @@ The app will open at `http://localhost:5173`
 
 ---
 
-## Available Scripts
+## 📜 Available Scripts
 
 ### Server (`/server`)
 
@@ -212,7 +227,7 @@ The app will open at `http://localhost:5173`
 
 ---
 
-## Troubleshooting
+## 🐛 Troubleshooting
 
 **"MongooseError: connect ECONNREFUSED"**
 → MongoDB is not running. Start it with `mongod` or use a MongoDB Atlas URI in `MONGO_URI`.
@@ -228,6 +243,24 @@ The app will open at `http://localhost:5173`
 
 ---
 
-## Contribution
+## 🤝 Contribution Guidelines
 
-- raise a PR for the particular issue assigned to you and then go to issue and link your PR there to get it reviewed
+We welcome contributions! To contribute:
+
+1. Review the open issues and discuss your ideas.
+2. Fork the repository and create your feature branch.
+3. Raise a PR for the particular issue assigned to you.
+4. Go to the original issue and link your PR there to get it reviewed.
+
+---
+
+## 🛡 CODEOWNERS
+
+All pull requests must be reviewed and approved by the core maintainer:
+- **@Pranav140** (Pranav Garg)
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
