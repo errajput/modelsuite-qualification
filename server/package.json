@@ -19,6 +19,7 @@
     "multer": "^2.1.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.0.0",
     "nodemon": "^3.1.0",
     "eslint": "^9.7.0"
   }
