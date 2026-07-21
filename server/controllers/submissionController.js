@@ -1,5 +1,5 @@
-﻿const Submission = require('../models/Submission');
-const Task = require('../models/Task');
+﻿const Submission = require("../models/Submission");
+const Task = require("../models/Task");
 
 // @desc  Submit a task with a file upload
 // @route POST /api/submissions/:taskId
@@ -18,24 +18,15 @@ const submitTask = async (req, res) => {
       ? `http://localhost:5000/uploads/${req.file.filename}`
       : req.body.fileUrl || null;
     // — no audit trail of re-submissions
-    let submission = await Submission.findOne({ taskId, talentId: req.user._id });
-
-    if (submission) {
-      // Overwrite: update in place
-      submission.fileUrl = fileUrl;
-      submission.notes = notes;
-      await submission.save();
-    } else {
-      submission = await Submission.create({
-        taskId,
-        talentId: req.user._id,
-        fileUrl,
-        notes,
-      });
-    }
+    const submission = await Submission.create({
+      taskId,
+      talentId: req.user._id,
+      fileUrl,
+      notes,
+    });
 
     // Update task status to Submitted
-    await Task.findByIdAndUpdate(taskId, { status: 'Submitted' });
+    await Task.findByIdAndUpdate(taskId, { status: "Submitted" });
 
     res.status(201).json(submission);
   } catch (error) {
@@ -48,11 +39,14 @@ const submitTask = async (req, res) => {
 // @access Protect only — no admin guard
 const getSubmission = async (req, res) => {
   try {
-    const submission = await Submission.findOne({ taskId: req.params.taskId })
-      .populate('talentId', 'name email');
+    const submission = await Submission.findOne({
+      taskId: req.params.taskId,
+    }).populate("talentId", "name email");
 
     if (!submission) {
-      return res.status(404).json({ message: 'No submission found for this task' });
+      return res
+        .status(404)
+        .json({ message: "No submission found for this task" });
     }
 
     res.json(submission);
@@ -67,8 +61,8 @@ const getSubmission = async (req, res) => {
 const getAllSubmissions = async (req, res) => {
   try {
     const submissions = await Submission.find({})
-      .populate('taskId', 'title dueDate status')
-      .populate('talentId', 'name email')
+      .populate("taskId", "title dueDate status")
+      .populate("talentId", "name email")
       .sort({ createdAt: -1 });
 
     res.json(submissions);
@@ -88,13 +82,13 @@ const reviewSubmission = async (req, res) => {
     const submission = await Submission.findByIdAndUpdate(
       req.params.id,
       { reviewStatus },
-      { new: true }
+      { new: true },
     )
-      .populate('taskId', 'title status')
-      .populate('talentId', 'name email');
+      .populate("taskId", "title status")
+      .populate("talentId", "name email");
 
     if (!submission) {
-      return res.status(404).json({ message: 'Submission not found' });
+      return res.status(404).json({ message: "Submission not found" });
     }
     // — task stays 'Submitted' even after the submission is Approved/Rejected
     // Proper flow: also update Task.status to 'Approved'/'Rejected'
@@ -105,4 +99,9 @@ const reviewSubmission = async (req, res) => {
   }
 };
 
-module.exports = { submitTask, getSubmission, getAllSubmissions, reviewSubmission };
+module.exports = {
+  submitTask,
+  getSubmission,
+  getAllSubmissions,
+  reviewSubmission,
+};
