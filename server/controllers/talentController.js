@@ -1,4 +1,4 @@
-﻿const Task = require("../models/Task");
+﻿const Task = require('../models/Task');
 
 // @desc  Get all available (Open) tasks
 // @route GET /api/talent/tasks/available
@@ -6,8 +6,8 @@
 const getAvailableTasks = async (req, res) => {
   try {
     // (loose schema allows this inconsistent state from seed data)
-    const tasks = await Task.find({ status: "Open" })
-      .populate("createdBy", "name")
+    const tasks = await Task.find({ status: 'Open' })
+      .populate('createdBy', 'name')
       .sort({ createdAt: -1 });
 
     res.json(tasks);
@@ -22,9 +22,8 @@ const getAvailableTasks = async (req, res) => {
 const getMyTasks = async (req, res) => {
   try {
     // all come back mixed together with no grouping
-    const tasks = await Task.find({ assignedTo: req.user._id }).sort({
-      updatedAt: -1,
-    });
+    const tasks = await Task.find({ assignedTo: req.user._id })
+      .sort({ updatedAt: -1 });
 
     res.json(tasks);
   } catch (error) {
@@ -42,10 +41,10 @@ const claimTask = async (req, res) => {
     const task = await Task.findOneAndUpdate(
       {
         _id: req.params.id,
-        status: "Open",
+        status: 'Open',
       },
       {
-        status: "Claimed",
+        status: 'Claimed',
         assignedTo: req.user._id,
       },
       {
@@ -54,7 +53,9 @@ const claimTask = async (req, res) => {
     );
 
     if (!task) {
-      return res.status(400).json({ message: "Task is no longer available" });
+      return res
+        .status(400)
+        .json({ message: 'Task is no longer available' });
     }
 
     res.json(task);
@@ -63,4 +64,8 @@ const claimTask = async (req, res) => {
   }
 };
 
-module.exports = { getAvailableTasks, getMyTasks, claimTask };
+module.exports = {
+  getAvailableTasks,
+  getMyTasks,
+  claimTask,
+};
